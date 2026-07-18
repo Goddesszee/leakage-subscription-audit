@@ -17,21 +17,17 @@ export default function App() {
     setStatus('loading');
     setErrorMessage('');
     try {
-      let response;
+      let transactionText = text;
+
       if (file) {
-        const formData = new FormData();
-        formData.append('file', file);
-        response = await fetch(`${API_BASE}/api/analyze`, {
-          method: 'POST',
-          body: formData
-        });
-      } else {
-        response = await fetch(`${API_BASE}/api/analyze`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ transactions: text })
-        });
+        transactionText = await file.text();
       }
+
+      const response = await fetch(`${API_BASE}/api/analyze`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transactions: transactionText })
+      });
 
       if (!response.ok) {
         const errBody = await response.json().catch(() => ({}));
