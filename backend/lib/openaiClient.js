@@ -1,8 +1,8 @@
-const Anthropic = require('@anthropic-ai/sdk');
+const OpenAI = require('openai');
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-const MODEL = 'claude-sonnet-4-5';
+const MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
 
 function extractJson(text) {
   const cleaned = text.replace(/```json/g, '').replace(/```/g, '').trim();
@@ -14,4 +14,4 @@ function extractJson(text) {
   return JSON.parse(slice);
 }
 
-module.exports = { anthropic, MODEL, extractJson };
+module.exports = { openai, MODEL, extractJson };

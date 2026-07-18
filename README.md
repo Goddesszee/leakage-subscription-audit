@@ -2,7 +2,7 @@
 
 An Agent Service Provider (ASP) built for the OKX.AI Genesis Hackathon (Finance Copilot track).
 
-Leakage reads a bank/card statement (pasted text or a CSV/TXT upload), uses Claude to detect
+Leakage reads a bank/card statement (pasted text or a CSV/TXT upload), uses OpenAI to detect
 recurring subscription charges, flags the ones that look forgotten or overpriced, and drafts a
 ready-to-send cancellation email for any of them.
 
@@ -25,7 +25,7 @@ subscription-audit-agent/
 cd backend
 npm install
 cp .env.example .env
-# edit .env and set ANTHROPIC_API_KEY
+# edit .env and set OPENAI_API_KEY
 npm start
 ```
 
@@ -47,19 +47,19 @@ Frontend runs on `http://localhost:5173` by default and talks to the backend at 
 
 1. **Upload** — paste transactions or drop a `.csv`/`.txt` export. A "Use sample statement"
    button is included for quick demoing.
-2. **Analyze** — `POST /api/analyze` sends the raw transaction text to Claude with a prompt that
+2. **Analyze** — `POST /api/analyze` sends the raw transaction text to OpenAI with a prompt that
    extracts recurring charges (merchant, amount, frequency, total spent, first/last seen) and
    flags ones that look likely forgotten, with a plain-English reason.
 3. **Dashboard** — results are shown as receipt-style cards: estimated monthly/annual spend,
    flagged count, and one card per subscription.
-4. **Draft cancellation** — `POST /api/draft-cancellation` asks Claude to write a short, polite
+4. **Draft cancellation** — `POST /api/draft-cancellation` asks OpenAI to write a short, polite
    cancellation email for a specific subscription, shown in a modal with a copy button.
 
 ## Deployment (suggested)
 
 - Frontend → Vercel (static build via `npm run build`, output in `frontend/dist`)
-- Backend → Railway or any Node host, with `ANTHROPIC_API_KEY` and `ALLOWED_ORIGIN` set as
-  environment variables
+- Backend → Vercel (serverless functions under `backend/api`), with `OPENAI_API_KEY` and
+  `ALLOWED_ORIGIN` set as environment variables
 
 ## Hackathon submission checklist
 

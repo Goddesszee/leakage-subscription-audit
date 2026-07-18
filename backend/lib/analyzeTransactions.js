@@ -1,4 +1,4 @@
-const { anthropic, MODEL, extractJson } = require('./anthropicClient');
+const { openai, MODEL, extractJson } = require('./openaiClient');
 
 async function analyzeTransactions(transactionText) {
   const trimmed = transactionText.slice(0, 40000);
@@ -19,21 +19,25 @@ For each detected subscription, output:
 - likelyForgotten: boolean — true if the charge looks like something a person may have forgotten about (e.g. low usage signal, generic/niche service name, long-running small charge, duplicate-sounding services)
 - reason: a short, one-sentence, plain-English explanation of why it was flagged (or not) as likely forgotten
 
-Respond with ONLY a JSON array of these objects. No preamble, no markdown fences, no commentary. If no subscriptions are found, respond with an empty array [].`;
+Respond with ONLY a JSON object with a single key "subscriptions" containing the array of these objects. No preamble, no markdown fences, no commentary. If no subscriptions are found, respond with {"subscriptions": []}.`;
 
-  const message = await anthropic.messages.create({
+  const completion = await openai.chat.completions.create({
     model: MODEL,
     max_tokens: 4000,
-    system: systemPrompt,
-    messages: [{ role: 'user', content: `Here are the transactions:\n\n${trimmed}` }]
+    response_format: { type: 'json_object' },
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: `Here are the transactions:\n\n${trimmed}` }
+    ]
   });
 
-  const textBlock = message.content.find((b) => b.type === 'text');
-  if (!textBlock) {
+  const rawText = completion.choices[0]?.message?.content;
+  if (!rawText) {
     throw new Error('No text response from model.');
   }
 
-  let subscriptions = extractJson(textBlock.text);
+  const parsed = extractJson(rawText);
+  let subscriptions = Array.isArray(parsed) ? parsed : parsed.subscriptions;
   if (!Array.isArray(subscriptions)) subscriptions = [];
 
   const totalMonthly = subscriptions.reduce((sum, s) => {
