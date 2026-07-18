@@ -1,0 +1,65 @@
+:root {
+  --bg: #12151B;
+  --surface: #1A1F27;
+  --surface-raised: #202632;
+  --hairline: #2C3340;
+  --text: #ECEFF3;
+  --text-muted: #8B93A3;
+  --amber: #E8A93B;
+  --amber-dim: #4A3B1E;
+  --teal: #4FA89E;
+  --teal-dim: #1D3532;
+  --danger: #D9714E;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+a {
+  color: var(--amber);
+}
+
+::selection {
+  background: var(--amber-dim);
+  color: var(--amber);
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

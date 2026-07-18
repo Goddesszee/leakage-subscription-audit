@@ -1,0 +1,109 @@
+.sub-card {
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.sub-card-flagged {
+  border-color: var(--amber-dim);
+}
+
+.sub-card-stub {
+  width: 10px;
+  flex-shrink: 0;
+  background-image: radial-gradient(circle at 5px 8px, var(--bg) 3px, transparent 3.5px);
+  background-size: 10px 16px;
+  background-repeat: repeat-y;
+  background-color: var(--hairline);
+}
+
+.sub-card-flagged .sub-card-stub {
+  background-color: var(--amber);
+}
+
+.sub-card-body {
+  flex: 1;
+  padding: 18px 20px;
+}
+
+.sub-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sub-card-merchant {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.sub-card-freq {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sub-card-amount {
+  font-size: 18px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sub-card-meta {
+  margin-top: 12px;
+  color: var(--text-muted);
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sub-card-dot {
+  opacity: 0.5;
+}
+
+.sub-card-flag {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--amber-dim);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sub-card-flag-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--amber);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sub-card-flag-reason {
+  font-size: 13px;
+  color: var(--text);
+}
+
+.btn-cancel {
+  margin-top: 14px;
+  background: transparent;
+  border: 1px solid var(--hairline);
+  color: var(--text);
+  padding: 9px 16px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.btn-cancel:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
