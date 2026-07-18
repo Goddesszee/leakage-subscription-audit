@@ -2,11 +2,9 @@
   "name": "subscription-audit-backend",
   "version": "1.0.0",
   "description": "Backend for the Subscription Audit Agent ASP",
-  "main": "server.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "local": "node server.js"
   },
   "dependencies": {
     "openai": "^4.68.0",
