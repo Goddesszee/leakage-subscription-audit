@@ -1,13 +1,15 @@
 {
-  "name": "subscription-audit-backend",
+  "name": "leakage-subscription-audit",
   "version": "1.0.0",
-  "description": "Backend for the Subscription Audit Agent ASP",
+  "private": true,
   "type": "commonjs",
   "scripts": {
     "local": "node local-dev-server.js"
   },
   "dependencies": {
-    "openai": "^4.68.0",
+    "openai": "^4.68.0"
+  },
+  "devDependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
